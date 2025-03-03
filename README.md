@@ -4,7 +4,7 @@ A robust system for scheduling appointments with two doctors, managing flexible 
 Features
 Models:
 Appointment Model:
-Handles appointments of variable lengths (e.g., 20, 45, 60 minutes).
+Handles appointments of variable lengths.
 Doctor Schedule Model:
 Doctor Strange: 9 AM - 5 PM, Monday to Friday.
 Doctor Who: 8 AM - 4 PM, Monday to Friday.
