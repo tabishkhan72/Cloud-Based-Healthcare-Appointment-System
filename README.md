@@ -1,72 +1,72 @@
+# **🩺 Appointment Scheduling System**  
 
-# **Appointment Scheduling System**
+A robust and flexible **appointment scheduling system** for managing **doctor availability and patient bookings**. This system supports **variable appointment durations** while ensuring conflict-free scheduling within each doctor's working hours.  
 
-A robust system for scheduling appointments with two doctors, managing flexible appointment durations while respecting each doctor's working hours.
+---
 
-## **Features**
+## **🚀 Features**  
 
-### **Models**
-- **Appointment Model**:  
-  - Handles appointments of variable lengths, ensuring scheduling flexibility.
-  
-- **Doctor Schedule Model**:  
+### **📌 Models**  
+- **Appointment Model**  
+  - Handles appointments of **variable lengths**, ensuring scheduling flexibility.  
+
+- **Doctor Schedule Model**  
   - **Doctor Strange**: Available **Monday to Friday, 9 AM - 5 PM**.  
-  - **Doctor Who**: Available **Monday to Friday, 8 AM - 4 PM**.
-
-### **APIs**
-- **Create Appointment**:  
-  - Books an appointment, ensuring no conflicts with existing appointments.  
-  - Rejects requests if scheduling conflicts occur.  
-
-- **Get Appointments Within Time Window**:  
-  - Retrieves all appointments for a specific doctor within a specified timeframe.  
-
-- **Get First Available Appointment**:  
-  - Finds the earliest available slot after a specified time for a patient seeking an appointment.  
+  - **Doctor Who**: Available **Monday to Friday, 8 AM - 4 PM**.  
 
 ---
 
-## **Deployment Instructions**
-The system is deployed on **Google Cloud Platform (GCP)**.
+### **🔗 API Endpoints**  
 
-### **Steps to Deploy**
-1. Set up a **GCP project** and create a **Cloud SQL instance**.  
-2. Deploy using the following commands:
+| **API**  | **Description** |
+|----------|---------------|
+| **`/api/appointments/create`**  | Books an appointment, ensuring no scheduling conflicts. |
+| **`/api/appointments/time-window`**  | Retrieves all appointments for a doctor within a specific timeframe. |
+| **`/api/appointments/first-available`**  | Finds the earliest available appointment slot for a patient. |
 
-   ```bash
-   gcloud builds submit --tag gcr.io/PROJECT-ID/opp_appointment
-   gcloud run deploy --image gcr.io/PROJECT-ID/opp_appointment --platform managed
-   ```
-
-   Replace `PROJECT-ID` with your actual **GCP project ID**.
+- **Conflict Prevention**: Ensures no double-booking or scheduling outside working hours.  
+- **Optimized Availability Search**: Quickly identifies the next available appointment for patients.  
 
 ---
 
-## **Local Development**
-### **Run the Project**
-1. Navigate to the project directory.  
-2. Start the application using:
+## **🌍 Deployment Instructions**  
+The system is **deployed on Google Cloud Platform (GCP)** using **Cloud Run** and **Cloud SQL**.  
 
-   ```bash
-   python3 src/app.py
-   ```
+### **🚀 Steps to Deploy**  
+1️⃣ Set up a **GCP project** and create a **Cloud SQL instance**.  
+2️⃣ Deploy using the following commands:  
 
-### **Run Unit Tests**
-Execute all tests using:
+```bash
+gcloud builds submit --tag gcr.io/PROJECT-ID/appointment-system
+gcloud run deploy --image gcr.io/PROJECT-ID/appointment-system --platform managed
+```
 
-   ```bash
-   python -m pytest tests
-   ```
+Replace **`PROJECT-ID`** with your **actual GCP project ID**.  
 
 ---
 
-## **Notes & Future Enhancements**
-- **Current limitations**: Fixed working hours for each doctor.  
-- **Planned updates**:
-  - Support for **recurring appointments**.  
-  - Integration of a **notification system** (email/SMS reminders).  
-  - Implementation of **user authentication and role-based access control**.  
-  - **Monitoring system reliability and scalability** through continuous testing and optimization.  
+## **🛠 Local Development**  
+
+### **1️⃣ Run the Application**  
+Ensure you have **Python 3.8+** installed. Start the application locally:  
+
+```bash
+python3 src/app.py
+```
+
+### **2️⃣ Run Unit Tests**  
+Execute all unit tests using:  
+
+```bash
+python -m pytest tests
+```
 
 ---
+
+## **🚀 Future Enhancements**  
+
+✅ **Recurring Appointments** – Allow patients to book recurring slots.  
+✅ **Notification System** – Email/SMS reminders for upcoming appointments.  
+✅ **User Authentication** – Implement role-based access control.  
+✅ **Reliability & Scalability** – Continuous monitoring and optimization for system performance.  
 
