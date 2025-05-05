@@ -9,14 +9,14 @@ home = Blueprint("/", __name__)
 
 @home.route("/")
 def index():
-    return jsonify({"data": "OK"}), HTTPStatus.OK
+    return jsonify({"status": "OK"}), HTTPStatus.OK
 
 
 def parse_datetime(dt_str, field_name):
     try:
         return datetime.strptime(dt_str, "%Y-%m-%d %H:%M:%S")
     except (ValueError, TypeError):
-        raise ValueError(f"Invalid datetime format for {field_name}. Use YYYY-MM-DD HH:MM:SS")
+        raise ValueError(f"Invalid format for '{field_name}'. Use 'YYYY-MM-DD HH:MM:SS'")
 
 
 @home.route("/appointments", methods=["POST"])
@@ -24,27 +24,29 @@ def create_appointment():
     data = request.get_json()
 
     required_fields = ["doctor_id", "patient_name", "start_time", "duration"]
-    if not all(field in data for field in required_fields):
-        return jsonify({"error": f"Missing required fields: {required_fields}"}), HTTPStatus.BAD_REQUEST
+    missing_fields = [f for f in required_fields if f not in data]
+    if missing_fields:
+        return jsonify({"error": f"Missing required fields: {', '.join(missing_fields)}"}), HTTPStatus.BAD_REQUEST
 
     try:
         doctor_id = int(data["doctor_id"])
-        patient_name = data["patient_name"]
+        patient_name = str(data["patient_name"]).strip()
         start_time = parse_datetime(data["start_time"], "start_time")
         duration = int(data["duration"])
-    except ValueError as e:
+    except (ValueError, TypeError) as e:
         return jsonify({"error": str(e)}), HTTPStatus.BAD_REQUEST
 
-    conflict_message = has_conflict(doctor_id, start_time, duration)
-    if conflict_message:
-        return jsonify({"error": conflict_message}), HTTPStatus.CONFLICT
+    conflict = has_conflict(doctor_id, start_time, duration)
+    if conflict:
+        return jsonify({"error": conflict}), HTTPStatus.CONFLICT
 
     new_appointment = Appointment(
         doctor_id=doctor_id,
         patient_name=patient_name,
         start_time=start_time,
-        duration=duration,
+        duration=duration
     )
+
     db.session.add(new_appointment)
     db.session.commit()
 
@@ -57,7 +59,7 @@ def get_appointments(doctor_id):
     end_time_str = request.args.get("end_time")
 
     if not start_time_str or not end_time_str:
-        return jsonify({"error": "Both start_time and end_time are required"}), HTTPStatus.BAD_REQUEST
+        return jsonify({"error": "Both 'start_time' and 'end_time' query parameters are required."}), HTTPStatus.BAD_REQUEST
 
     try:
         start_time = parse_datetime(start_time_str, "start_time")
@@ -68,7 +70,7 @@ def get_appointments(doctor_id):
     appointments = Appointment.query.filter(
         Appointment.doctor_id == doctor_id,
         Appointment.start_time.between(start_time, end_time)
-    ).all()
+    ).order_by(Appointment.start_time.asc()).all()
 
     return jsonify({"appointments": [a.json() for a in appointments]}), HTTPStatus.OK
 
@@ -77,7 +79,7 @@ def get_appointments(doctor_id):
 def get_first_available_appointment(doctor_id):
     start_time_str = request.args.get("start_time")
     if not start_time_str:
-        return jsonify({"error": "start_time is required"}), HTTPStatus.BAD_REQUEST
+        return jsonify({"error": "'start_time' query parameter is required."}), HTTPStatus.BAD_REQUEST
 
     try:
         start_time = parse_datetime(start_time_str, "start_time")
@@ -85,10 +87,8 @@ def get_first_available_appointment(doctor_id):
         return jsonify({"error": str(e)}), HTTPStatus.BAD_REQUEST
 
     appointment = (
-        Appointment.query.filter(
-            Appointment.doctor_id == doctor_id,
-            Appointment.start_time >= start_time
-        )
+        Appointment.query
+        .filter(Appointment.doctor_id == doctor_id, Appointment.start_time >= start_time)
         .order_by(Appointment.start_time.asc())
         .first()
     )
@@ -96,4 +96,4 @@ def get_first_available_appointment(doctor_id):
     if appointment:
         return jsonify({"appointment": appointment.json()}), HTTPStatus.OK
 
-    return jsonify({"message": "No available appointments found after the specified time"}), HTTPStatus.NOT_FOUND
+    return jsonify({"message": "No available appointments found after the specified time."}), HTTPStatus.NOT_FOUND
