@@ -11,8 +11,8 @@ A robust and flexible **appointment scheduling system** for managing **doctor av
   - Handles appointments of **variable lengths**, ensuring scheduling flexibility.  
 
 - **Doctor Schedule Model**  
-  - **Doctor Strange**: Available **Monday to Friday, 9 AM - 5 PM**.  
-  - **Doctor Who**: Available **Monday to Friday, 8 AM - 4 PM**.  
+  - **Doctor Strange**: Available **Monday to Friday, 9 AM - 5 PM**  
+  - **Doctor Who**: Available **Monday to Friday, 8 AM - 4 PM**  
 
 ---
 
