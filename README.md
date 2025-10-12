@@ -1,6 +1,6 @@
 # **🩺 Appointment Scheduling System**  
 
-A robust and flexible **appointment scheduling system** for managing **doctor availability and patient bookings**. This system supports **variable appointment durations** while ensuring conflict-free scheduling within each doctor's working hours.  
+A robust and flexible **appointment scheduling system** for managing **doctor availability and patient bookings**. This system supports **variable appointment durations** while ensuring conflict-free scheduling within each doctor's working hours 
 
 ---
 
@@ -33,7 +33,7 @@ A robust and flexible **appointment scheduling system** for managing **doctor av
 The system is **deployed on Google Cloud Platform (GCP)** using **Cloud Run** and **Cloud SQL**.  
 
 ### **🚀 Steps to Deploy**  
-1️⃣ Set up a **GCP project** and create a **Cloud SQL instance**.  
+1️⃣ Set up a **GCP project** and create a **Cloud SQL instance**  
 2️⃣ Deploy using the following commands:  
 
 ```bash
