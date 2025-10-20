@@ -41,7 +41,7 @@ gcloud builds submit --tag gcr.io/PROJECT-ID/appointment-system
 gcloud run deploy --image gcr.io/PROJECT-ID/appointment-system --platform managed
 ```
 
-Replace **`PROJECT-ID`** with your **actual GCP project ID**.  
+Replace **`PROJECT-ID`** with your **actual GCP project ID**  
 
 ---
 
@@ -65,8 +65,8 @@ python -m pytest tests
 
 ## **🚀 Future Enhancements**  
 
-✅ **Recurring Appointments** – Allow patients to book recurring slots together.  
-✅ **Notification System** – Email/SMS reminders for upcoming appointments.  
-✅ **User Authentication** – Implement role-based access control.  
+✅ **Recurring Appointments** – Allow patients to book recurring slots together  
+✅ **Notification System** – Email/SMS reminders for upcoming appointments  
+✅ **User Authentication** – Implement role-based access control  
 ✅ **Reliability & Scalability** – Continuous monitoring and optimization for system performance.  
 
