@@ -1,6 +1,6 @@
 # **🩺 Appointment Scheduling System**  
 
-A robust and flexible **appointment scheduling system** for managing **doctor availability and patient bookings**. This system supports **variable appointment durations** while ensuring conflict-free scheduling within each doctor's working hours 
+A robust and flexible **appointment scheduling system** for managing **doctor availability and patient bookings**. This system supports **variable appointment durations** while ensuring conflict-free scheduling within each doctor's working hours. 
 
 ---
 
